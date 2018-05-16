@@ -12,17 +12,14 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice
 @ControllerAdvice
 class ResponseAdvisor : ResponseBodyAdvice<Any> {
 
-    override fun supports(returnType: MethodParameter, converterType: Class<out HttpMessageConverter<*>>): Boolean {
-        return true
-    }
-
-    override fun beforeBodyWrite(body: Any, returnType: MethodParameter, selectedContentType: MediaType,
-                                 selectedConverterType: Class<out HttpMessageConverter<*>>, request: ServerHttpRequest,
-                                 response: ServerHttpResponse): Any {
+    override fun beforeBodyWrite(body: Any?, returnType: MethodParameter, selectedContentType: MediaType, selectedConverterType: Class<out HttpMessageConverter<*>>, request: ServerHttpRequest, response: ServerHttpResponse): Any? {
         if(body is ResponseMessage){
             return body
         }
         return ResponseMessage.ofSuccess(body)
     }
 
+    override fun supports(returnType: MethodParameter, converterType: Class<out HttpMessageConverter<*>>): Boolean {
+        return true
+    }
 }

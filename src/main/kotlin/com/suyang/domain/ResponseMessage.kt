@@ -7,7 +7,7 @@ class ResponseMessage {
 
     companion object {
 
-        fun ofSuccess(body: Any): ResponseMessage {
+        fun ofSuccess(body: Any?): ResponseMessage {
             val result = ResponseMessage()
             result.body = body
             return result
